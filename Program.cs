@@ -15,15 +15,44 @@ namespace VacationBudgetPlanner
             Console.WriteLine("Welcome to the Vacation Budget Planner.\n\n");
             Console.WriteLine("You've worked hard and deserve a great, stress free vacation!");
             Console.WriteLine("This planner will help with financial planning to make your vacation as smooth as possible.");
+            Console.WriteLine("Enter your password to continue");
+
+            int loginAttempts = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                string pass = "Vaca4Me!";
+                string guess = Console.ReadLine();
+
+                if (guess == pass)
+                {
+                    Console.WriteLine("You may enter");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Sorry Try Again");
+                    loginAttempts++;
+                    if (loginAttempts == 3)
+                    {
+                        Console.WriteLine("Login Failure");
+                        Environment.Exit(3);
+                    }
+                }
+            }
+
+            const int hours = 24;
+            const int minutes = 60;
+
+
             Console.WriteLine();
             Console.WriteLine("Who do we have the privilage of working with?");
             string adventurerName = Console.ReadLine();
             Console.WriteLine();
-            BeginAgain:
+        BeginAgain:
             Console.WriteLine("Welcome Adventurer " + adventurerName + ", where do you plan to go?");
             Console.WriteLine("1: Mountain biking in Blue Derby, Tasmania");
             Console.WriteLine("2: Ballroom Dancing on a cruise to Italy, Greek Isles and more?\n");
-            DoOver:
+        DoOver:
             Console.WriteLine("Enter 1 or 2");
             string userValue = Console.ReadLine();
             Console.WriteLine();
@@ -37,8 +66,8 @@ namespace VacationBudgetPlanner
                     int numberOfDays = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
                     Console.WriteLine($"How much spending money in USD(United States Dollars) are you planning to take with you?");
-                    int hoursOnTrip = numberOfDays * 24;
-                    int minutesOnTrip = hoursOnTrip * 60;
+                    int hoursOnTrip = numberOfDays * hours;
+                    int minutesOnTrip = hoursOnTrip * minutes;
                     double spendingMoney = Convert.ToDouble(Console.ReadLine());
                     double ausBucks = spendingMoney * 1.37;
                     double perDiem = Math.Round(spendingMoney / numberOfDays, 2);
@@ -50,7 +79,7 @@ namespace VacationBudgetPlanner
                     Console.WriteLine($"This allows for {perDiem.ToString("C2", CultureInfo.CurrentCulture)} USD to spend per day.");
                     Console.WriteLine($"After currency exchange you will have {ausBucks:C} Australian Dollars total.\nThat averages to {ausPerDiem:C} AUD to spend per day.\n");
                     Console.WriteLine("Enjoy your mountain biking trip in Blue Derby, Tasmania. Be Safe!\n");
-                   
+
                     break;
 
                 case "2":
@@ -61,8 +90,8 @@ namespace VacationBudgetPlanner
                     int cruiseDays = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
                     Console.WriteLine($"How much spending money in USD(United States Dollars) are you planning to take with you?");
-                    int cruiseHours = cruiseDays * 24;
-                    int cruiseMinutes = cruiseHours * 60;
+                    int cruiseHours = cruiseDays * hours;
+                    int cruiseMinutes = cruiseHours * minutes;
                     double cruiseMoney = Convert.ToDouble(Console.ReadLine());
                     double euroBucks = cruiseMoney * 1.18;
                     double cruisePerDiem = Math.Round(cruiseMoney / cruiseDays, 2);
@@ -74,13 +103,13 @@ namespace VacationBudgetPlanner
                     Console.WriteLine($"This allows for {cruisePerDiem.ToString("C2", CultureInfo.CurrentCulture)} to spend per day.");
                     Console.WriteLine($"Your USD converts to a total of {euroBucks:C} Euro or a daily maximum of {euroPerDiem:C}" +
                         $" to spend.\n");
-                    Console.WriteLine($"Don't forget the dramamine and your dance shoes! Have fun on your {cruiseDays} cruise!\n");
+                    Console.WriteLine($"Don't forget the dramamine and your dance shoes! Have fun on your {cruiseDays} day cruise!\n");
 
                     break;
 
                 default:
                     Console.WriteLine("Sorry, that option isn't available. Please choose 1 or 2");
-                goto DoOver;
+                    goto DoOver;
 
             }
             Console.WriteLine("Would you like to start over? Y or N\n");
@@ -90,9 +119,7 @@ namespace VacationBudgetPlanner
                 goto BeginAgain;
             }
             else
-            {
-
-            }
-       }
+            { }
+        }
     }
-}
+}       
